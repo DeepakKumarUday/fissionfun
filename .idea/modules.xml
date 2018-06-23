@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/javatask.iml" filepath="$PROJECT_DIR$/.idea/modules/javatask.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/javatask_main.iml" filepath="$PROJECT_DIR$/.idea/modules/javatask_main.iml" group="javatask" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/javatask_test.iml" filepath="$PROJECT_DIR$/.idea/modules/javatask_test.iml" group="javatask" />
+    </modules>
+  </component>
+</project>
