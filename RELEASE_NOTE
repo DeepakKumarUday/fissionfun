@@ -1,0 +1,35 @@
+BUILD:
+=======
+1. Go to root path of project
+2. Run command : gradle clean fatJar
+3. Runnable jar file  "javatask-all-1.0-SNAPSHOT.jar" will be created at /build/libs.
+
+CONFIGURATION:
+==============
+This application needs a config file named : config.properties.
+1. config.properties
+  a).FILE_PATH_FOR_ORG_EXP_NAME_SORT
+  b).FILE_PATH_FOR_AGE_EXP_RATIO_ORG_SORT
+  c).EMPLOYEE_INPUT_FILE_LOCATION
+
+  Set these property as per your storage plan.
+
+
+EXECUTION:
+===========
+1. Arguments:
+ a). -c or -confDir : mandatory argument : location of config.properties file.
+ b). -w or -write : to write employee data in file , support SORT and EXIT command.
+ c). -r or -read : to read employees data for a particular company.
+
+ NOTE : either of b and c argument is must to pass to the application.
+
+2. For Problem Statement 1:
+   Run below command:
+   java -jar javatask-all-1.0-SNAPSHOT.jar -c {confFilePath} -w
+
+3. For Problem Statement 2:
+   Run below command:
+   java -jar javatask-all-1.0-SNAPSHOT.jar -c {confFilePath} -r
+
+4. Custom annotation @Log has been created and used in code. Also have test case in source code.
