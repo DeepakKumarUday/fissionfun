@@ -20,9 +20,10 @@ public class Employee {
     this.organisation = organisation;
   }
 
-  public static Employee getEmployee(String[] attributes) throws FDataCheckException {
+  public static Employee getEmployeeForInputString(String data) throws FDataCheckException {
+    String[] attributes = data.split(",");
     if (attributes.length != 5){
-      throw new ArgumentCountMismatchException("data entered should have only 5 attributes ");
+      throw new ArgumentCountMismatchException("data entered should have only 5 attributes OR SORT OR EXIT keyword.");
     }
     DataValidator.isValidData(attributes);
     int experience =  Integer.parseInt(attributes[2].trim());
@@ -36,23 +37,23 @@ public class Employee {
       organisation + System.getProperty("line.separator");
   }
 
-  public static Comparator<Employee> getSortByOrgExpNameComparator() {
-    return new Comparator<Employee>() {
-      @Override
-      public int compare(Employee employee, Employee t1) {
-        return employee.organisation.compareTo(t1.organisation);
-      }
-      // compare using attribute 1
-    };
+  public String getFirstName() {
+    return firstName;
   }
 
-  public static Comparator<Employee> getSortByExpAgeRatioAndOrgComparator() {
-    return new Comparator<Employee>() {
-      @Override
-      public int compare(Employee employee, Employee t1) {
-        return (employee.firstName+employee.lastName).compareTo(t1.firstName+t1.lastName);
-      }
-      // compare using attribute 2
-    };
+  public String getLastName() {
+    return lastName;
+  }
+
+  public int getExperience() {
+    return experience;
+  }
+
+  public int getAge() {
+    return age;
+  }
+
+  public String getOrganisation() {
+    return organisation;
   }
 }

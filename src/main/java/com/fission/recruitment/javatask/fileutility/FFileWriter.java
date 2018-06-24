@@ -7,11 +7,19 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class FFileWriter {
-  private FileWriter fileWriter;
+  public FileWriter fileWriter;
 
   public FFileWriter(File file) {
     try {
-      this.fileWriter = new FileWriter(file);
+      this.fileWriter = new FileWriter(file, true);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public FFileWriter(File file, boolean append) {
+    try {
+      this.fileWriter = new FileWriter(file, append);
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -21,6 +29,14 @@ public class FFileWriter {
     try {
       fileWriter.write(employee.toString());
       fileWriter.flush();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void close(){
+    try {
+      fileWriter.close();
     } catch (IOException e) {
       e.printStackTrace();
     }
