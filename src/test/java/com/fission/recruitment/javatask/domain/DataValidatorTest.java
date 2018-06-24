@@ -1,12 +1,17 @@
-package com.fission.recruitment.domain;
+package com.fission.recruitment.javatask.domain;
 
 
+import com.fission.recruitment.javatask.customannotation.beanbinding.ApplicationConfig;
 import com.fission.recruitment.javatask.domain.DataValidator;
 import com.fission.recruitment.javatask.domain.fexception.ArgumentDataTypeMisMatchException;
 import org.junit.Test;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class DataValidatorTest {
 
+  static {
+    new AnnotationConfigApplicationContext(ApplicationConfig.class);
+  }
   @Test(expected = ArgumentDataTypeMisMatchException.class)
   public void experienceCanNotBeAlphaNumeric()  throws ArgumentDataTypeMisMatchException{
     String input = "deepak, kumar , 4yrs , 24, u2opia";

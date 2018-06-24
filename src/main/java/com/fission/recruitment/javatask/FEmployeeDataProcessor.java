@@ -1,6 +1,7 @@
 package com.fission.recruitment.javatask;
 
 import com.fission.recruitment.javatask.customannotation.Log;
+import com.fission.recruitment.javatask.customannotation.beanbinding.ApplicationConfig;
 import com.fission.recruitment.javatask.domain.Employee;
 import com.fission.recruitment.javatask.domain.fexception.FDataCheckException;
 import com.fission.recruitment.javatask.fileutility.FFileReader;
@@ -13,7 +14,9 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.slf4j.Logger;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -28,12 +31,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-@ComponentScan(basePackages = "com.fission")
 @Service
 public class FEmployeeDataProcessor {
 
   @Log
-  static Logger logger;
+  private static Logger logger;
+  static {
+    new AnnotationConfigApplicationContext(ApplicationConfig.class);
+  }
 
   private static List<Employee> bufferedEmployeeData  = new LinkedList<>();
   private static FFileWriter empFileWriter;
@@ -44,6 +49,7 @@ public class FEmployeeDataProcessor {
   public static void main(String[] args){
     CommandLine commandLine = readCli(args);
     String confDir = commandLine.getOptionValue("confDir");
+    logger.info("config path is : " + confDir);
     try {
       properties.load(new FileInputStream(confDir + "/config.properties"));
       rawEmpFile = new File(properties.getProperty("EMPLOYEE_INPUT_FILE_LOCATION"));
@@ -52,8 +58,10 @@ public class FEmployeeDataProcessor {
     }
     if(commandLine.hasOption("r")){
       Scanner sc = new Scanner(System.in);
+      logger.info("reading data for company : " + confDir);
       System.out.println("Please enter the company name :");
       String companyName = sc.next();
+      logger.info("reading data for company : " + companyName);
       FFileReader fFileReader = new FFileReader(rawEmpFile);
       fFileReader.printEmployeeDetailsForCompany(companyName);
     }else{
@@ -63,6 +71,7 @@ public class FEmployeeDataProcessor {
       while (true) {
         System.out.println("enter your  input :) ");
         String input = sc.nextLine();
+        logger.info("writing data to file : " + input);
         processInput(input);
       }
     }
@@ -70,6 +79,7 @@ public class FEmployeeDataProcessor {
 
   private static void processInput(String input){
     if (input.equalsIgnoreCase("SORT")) {
+      logger.info("sorting data : ");
       empFileWriter.close();
       empFileWriter = null;
       ExecutorService service =  Executors.newSingleThreadExecutor();
@@ -83,7 +93,7 @@ public class FEmployeeDataProcessor {
         e.printStackTrace();
       }
     } else if (input.equalsIgnoreCase("EXIT")) {
-      System.out.println("Terminating application :) ");
+      logger.info("Terminating application :) ");
       System.exit(0);
     }else{
       try {

@@ -45,14 +45,14 @@ public class FFileSorter implements Callable{
     read();
     employees.sort(new EmployeeMultiComparator(EmployeeComparators.getOrganisationComparator(),
       EmployeeComparators.getExperienceComparator(), EmployeeComparators.getNameComparator()));
-    File file1 = new File(FEmployeeDataProcessor.properties.getProperty("OUTPUT_FILE_FOR_SORT_1"));
+    File file1 = new File(FEmployeeDataProcessor.properties.getProperty("FILE_PATH_FOR_ORG_EXP_NAME_SORT"));
     FFileWriter f1 = new FFileWriter(file1, false);
     for (Employee emp: employees
       ) {
       f1.write(emp);
     }
     f1.close();
-    File file2 = new File(FEmployeeDataProcessor.properties.getProperty("OUTPUT_FILE_FOR_SORT_2"));
+    File file2 = new File(FEmployeeDataProcessor.properties.getProperty("FILE_PATH_FOR_AGE_EXP_RATIO_ORG_SORT"));
     FFileWriter f2 = new FFileWriter(file2, false);
     employees.sort(new EmployeeMultiComparator(EmployeeComparators.getExperienceAgeRatioComparator(),
       EmployeeComparators.getOrganisationComparator()));
